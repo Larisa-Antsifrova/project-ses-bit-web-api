@@ -1,1 +1,8 @@
-[]
+[
+  {
+    "id": "74fa8a90-e4f3-4c33-b992-19f698b6964c",
+    "name": "Guest",
+    "email": "test1@gmail",
+    "password": "1234"
+  }
+]
