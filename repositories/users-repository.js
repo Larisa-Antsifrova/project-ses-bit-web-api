@@ -5,7 +5,22 @@ const { v4: uuidv4 } = require("uuid");
 const usersPath = path.join(__dirname, "..", "db", "users.json");
 
 const getAllUsers = async usersPath => {
-  return JSON.parse(await fs.readFile(usersPath, "utf-8"));
+  try {
+    return JSON.parse(await fs.readFile(usersPath, "utf-8"));
+  } catch (error) {
+    console.log("Error in getAllUsers: ", error.message);
+  }
+};
+
+const getUserByEmail = async email => {
+  try {
+    const allUsers = await getAllUsers(usersPath);
+    const requestedUser = allUsers.find(user => user.email === email);
+
+    return requestedUser;
+  } catch (error) {
+    console.log("Error in getUserByEmail: ", error.message);
+  }
 };
 
 const addNewUser = async ({ name = "Guest", email, password }) => {
@@ -17,20 +32,24 @@ const addNewUser = async ({ name = "Guest", email, password }) => {
       password,
     };
 
-    const data = await fs.readFile(usersPath, "utf-8");
-    const allUsers = [...JSON.parse(data), newUser];
+    const allUsers = await getAllUsers(usersPath);
+    const updatedAllUsers = [...allUsers, newUser];
 
-    await fs.writeFile(usersPath, JSON.stringify(allUsers, null, 2));
+    await fs.writeFile(usersPath, JSON.stringify(updatedAllUsers, null, 2));
   } catch (error) {
     console.log("Error in addNewUser: ", error.message);
   }
 };
 
 const isUniqueUser = async email => {
-  const allUsers = await getAllUsers(usersPath);
-  const isUnique = allUsers.find(user => user.email === email);
+  try {
+    const allUsers = await getAllUsers(usersPath);
+    const isUnique = allUsers.find(user => user.email === email);
 
-  return !isUnique;
+    return !isUnique;
+  } catch (error) {
+    console.log("Error in isUniqueUser: ", error.message);
+  }
 };
 
-module.exports = { getAllUsers, addNewUser, isUniqueUser };
+module.exports = { getAllUsers, getUserByEmail, addNewUser, isUniqueUser };

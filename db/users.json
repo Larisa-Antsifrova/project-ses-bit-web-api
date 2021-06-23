@@ -1,14 +1,8 @@
 [
   {
-    "id": "74fa8a90-e4f3-4c33-b992-19f698b6964c",
+    "id": "6fcce58f-d59b-423a-b1b8-2f747eed70fa",
     "name": "Guest",
     "email": "test1@gmail",
-    "password": "1234"
-  },
-  {
-    "id": "bcca9a0d-5922-400f-97ba-7a07d7d77a67",
-    "name": "Guest",
-    "email": "test2@gmail",
-    "password": "$2a$08$9etduhZEFIpgi58CmEFn/ua0Up/MjnTNzmpi3DUZHpKHXi4b5YHcW"
+    "password": "$2a$08$ZcLCmeag5G/RVvJlnDPm8exMMWSTVZWVuHS7zTIhTQzFNtqaigKkW"
   }
 ]
