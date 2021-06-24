@@ -11,12 +11,8 @@ const schemaRegisterUser = Joi.object({
 });
 
 const schemaLoginUser = Joi.object({
-  email: Joi.string()
-    .email({
-      minDomainSegments: 2,
-    })
-    .required(),
-  password: Joi.string().min(8).required(),
+  email: Joi.string().required(),
+  password: Joi.string().required(),
 });
 
 const validateRequestAgainstSchema = async (schema, request, next) => {
