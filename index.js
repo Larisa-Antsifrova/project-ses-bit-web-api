@@ -2,6 +2,7 @@ const express = require("express");
 const helmet = require("helmet");
 const rateLimit = require("express-rate-limit");
 const { apiLimiterConfig } = require("./helpers/api-limiter-config");
+const homeRouter = require("./routes/home-route");
 const usersRouter = require("./routes/users-routes");
 const btcRouter = require("./routes/btc-routes");
 require("dotenv").config();
@@ -16,13 +17,7 @@ app.use(express.json());
 const apiLimiter = rateLimit(apiLimiterConfig);
 app.use(apiLimiter);
 
-app.get("/", function (req, res) {
-  return res.json({
-    message:
-      "Welcome! Please visit /user/create endpoint to register or /user/login to login. Once logged in you can visit /btcRate to learn what current bitcoin rate is.",
-  });
-});
-
+app.use(homeRouter);
 app.use(usersRouter);
 app.use(btcRouter);
 
