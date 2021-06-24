@@ -1,0 +1,27 @@
+const axios = require("axios");
+require("dotenv").config();
+
+const COINLAYER_API_KEY = process.env.COINLAYER_API_KEY;
+const coinlayer = axios.create({
+  baseURL: "http://api.coinlayer.com",
+});
+
+const fetchUahToBtcRate = async () => {
+  try {
+    const {
+      data: { timestamp, target, rates },
+    } = await coinlayer.get("/live", {
+      params: {
+        access_key: COINLAYER_API_KEY,
+        target: "UAH",
+        symbols: "BTC",
+      },
+    });
+
+    return { timestamp, target, rates };
+  } catch (error) {
+    console.log("Error in fetchUahToBtcRate: ", error.message);
+  }
+};
+
+module.exports = { fetchUahToBtcRate };
