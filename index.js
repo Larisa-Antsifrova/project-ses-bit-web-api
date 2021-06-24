@@ -1,5 +1,7 @@
 const express = require("express");
 const helmet = require("helmet");
+const rateLimit = require("express-rate-limit");
+const { apiLimiterConfig } = require("./helpers/api-limiter-config");
 const usersRouter = require("./routes/users-routes");
 const btcRouter = require("./routes/btc-routes");
 require("dotenv").config();
@@ -10,6 +12,9 @@ const app = express();
 app.use(helmet());
 
 app.use(express.json());
+
+const apiLimiter = rateLimit(apiLimiterConfig);
+app.use(apiLimiter);
 
 app.get("/", function (req, res) {
   return res.json({
