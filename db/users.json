@@ -1,8 +1,8 @@
 [
   {
-    "id": "6fcce58f-d59b-423a-b1b8-2f747eed70fa",
-    "name": "Guest",
-    "email": "test1@gmail",
-    "password": "$2a$08$ZcLCmeag5G/RVvJlnDPm8exMMWSTVZWVuHS7zTIhTQzFNtqaigKkW"
+    "id": "d40ddf50-386e-4d6c-a10a-2c08d599ab19",
+    "name": "Software Engineering School",
+    "email": "software@engineering.school",
+    "password": "$2a$08$qT85kN0AQU1mnl3fCyskzOfw/qxuQBRmzzIP1qwlB0QohZ0OghqSu"
   }
 ]
