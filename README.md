@@ -2,8 +2,6 @@
 
 # Web API - Software Engineering School
 
----
-
 ## Endpoints
 
 ### / - Home
@@ -186,8 +184,6 @@ ResponseBody: {
 
 ```
 
----
-
 ## Structure
 
 | File/Folder  | Description                                                 | Example                     |
@@ -201,8 +197,6 @@ ResponseBody: {
 | services     | Keeps methods to work with external services                | Coinlayer                   |
 | middleware   | Keeps middleware functions                                  | isAuthenticated, validation |
 | helpers      | Keeps project's constants and configs                       | HTTP codes, API limiter     |
-
----
 
 ## Tools and resources
 
