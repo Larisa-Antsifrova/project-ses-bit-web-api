@@ -1,4 +1,5 @@
 const jwt = require("jsonwebtoken");
+const { HttpCodes } = require("../helpers/constants");
 require("dotenv").config();
 
 const JWT_SECRET_KEY = process.env.JWT_SECRET_KEY;
@@ -15,7 +16,7 @@ const isAuthenticated = (req, res, next) => {
 
     next();
   } catch (error) {
-    return res.status(401).json({ message: error.message });
+    return res.status(HttpCodes.UNAUTHORIZED).json({ message: error.message });
   }
 };
 

@@ -2,6 +2,7 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
 const User = require("../repositories/users-repository");
+const { HttpCodes } = require("../helpers/constants");
 
 const createUser = async (req, res, next) => {
   try {
@@ -10,7 +11,9 @@ const createUser = async (req, res, next) => {
     const isUnique = await User.isUniqueUser(email);
 
     if (!isUnique) {
-      return res.status(409).json({ message: "This email is already in use." });
+      return res
+        .status(HttpCodes.CONFLICT)
+        .json({ message: "This email is already in use." });
     }
 
     const hashedPassword = await bcrypt.hash(password, 8);
@@ -22,7 +25,7 @@ const createUser = async (req, res, next) => {
     });
 
     return res
-      .status(201)
+      .status(HttpCodes.CREATED)
       .json({ message: "You have successfully registered." });
   } catch (error) {
     next(error);
@@ -36,13 +39,17 @@ const loginUser = async (req, res, next) => {
     const user = await User.getUserByEmail(email);
 
     if (!user) {
-      return res.status(401).json({ message: "Invalid credentials." });
+      return res
+        .status(HttpCodes.UNAUTHORIZED)
+        .json({ message: "Invalid credentials." });
     }
 
     const isPasswordRight = await bcrypt.compare(password, user.password);
 
     if (!isPasswordRight) {
-      return res.status(401).json({ message: "Invalid credentials." });
+      return res
+        .status(HttpCodes.UNAUTHORIZED)
+        .json({ message: "Invalid credentials." });
     }
 
     const payload = { id: user.id, name: user.name };
