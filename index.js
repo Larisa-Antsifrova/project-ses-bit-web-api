@@ -1,4 +1,5 @@
 const express = require("express");
+const helmet = require("helmet");
 const usersRouter = require("./routes/users-routes");
 const btcRouter = require("./routes/btc-routes");
 require("dotenv").config();
@@ -6,12 +7,14 @@ require("dotenv").config();
 const PORT = process.env.PORT || 3000;
 
 const app = express();
+app.use(helmet());
 
 app.use(express.json());
 
 app.get("/", function (req, res) {
   return res.json({
-    message: "Welcome!",
+    message:
+      "Welcome! Please visit /user/create endpoint to register or /user/login to login. Once logged in you can visit /btcRate to learn what current bitcoin rate is.",
   });
 });
 
