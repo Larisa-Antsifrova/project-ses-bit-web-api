@@ -3,7 +3,7 @@ require("dotenv").config();
 
 const COINLAYER_API_KEY = process.env.COINLAYER_API_KEY;
 const coinlayer = axios.create({
-  baseURL: "http://api.coinlayer.com",
+  baseURL: "http://api.coinlayer.com", // only HTTP is available in free tier, HTTPS - in premium one
 });
 
 const fetchUahToBtcRate = async () => {
