@@ -16,7 +16,6 @@ app.use(helmet());
 
 app.use(express.json());
 
-// TODO: to set limiters for each route
 const apiLimiter = rateLimit(apiLimiterConfig);
 app.use(apiLimiter);
 
@@ -24,15 +23,16 @@ app.use(homeRouter);
 app.use(usersRouter);
 app.use(btcRouter);
 
-// General errors handlers
+// Handling 404 Not found
 app.use((req, res) => {
-  res.status(HttpCodes.NOT_FOUND).json({ message: "Not found" });
+  return res.status(HttpCodes.NOT_FOUND).json({ message: "Not found" });
 });
 
+// Central errors handling
 app.use((err, req, res, next) => {
   const status = err.status || HttpCodes.INTERNAL_SERVER_ERROR;
 
-  res.status(status).json({
+  return res.status(status).json({
     message: err.message,
   });
 });
