@@ -14,7 +14,7 @@ const getAllUsers = async usersPath => {
 
 const getUserByEmail = async email => {
   try {
-    return await getAllUsers(usersPath).find(user => user.email === email);
+    return (await getAllUsers(usersPath)).find(user => user.email === email);
   } catch (error) {
     console.log("Error in getUserByEmail: ", error.message);
   }
@@ -22,8 +22,10 @@ const getUserByEmail = async email => {
 
 const addNewUser = async ({ name, email, password }) => {
   try {
+    const id = uuidv4();
+
     const newUser = {
-      id: uuidv4(),
+      id,
       name,
       email,
       password,
@@ -33,6 +35,8 @@ const addNewUser = async ({ name, email, password }) => {
     allUsers.push(newUser);
 
     await fs.writeFile(usersPath, JSON.stringify(allUsers, null, 2));
+
+    return { id, name, email };
   } catch (error) {
     console.log("Error in addNewUser: ", error.message);
   }

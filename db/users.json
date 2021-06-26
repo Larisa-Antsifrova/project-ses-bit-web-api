@@ -4,17 +4,5 @@
     "name": "Software Engineering School",
     "email": "software@engineering.school",
     "password": "$2a$08$qT85kN0AQU1mnl3fCyskzOfw/qxuQBRmzzIP1qwlB0QohZ0OghqSu"
-  },
-  {
-    "id": "8c1ee21a-18df-475a-9ab6-b61e0b3368e0",
-    "name": "Guest",
-    "email": "test@gmail.com",
-    "password": "$2a$08$7VFjXJvIrntGVoTf..cNCO8npLdnIhdkGX6PLfeHc0R7TTObrwan6"
-  },
-  {
-    "id": "a98b38ee-4fe9-4c9f-b466-0ae5b9176df8",
-    "name": "Guest",
-    "email": "test2@gmail.com",
-    "password": "$2a$08$HO1OCe0nO4dSgszVjD6W9uSOveTsXwqhprxCJAC9a1eLFIXB4Fii6"
   }
 ]
