@@ -33,9 +33,8 @@ ResponseBody: {
 
 Endpoint for registering new users.
 
-- Email and password are required. Name is optional.
-- If no name is provided, 'Guest' is set as default.
-- Email and password fields are validated.
+- Name, email and password are required.
+- Name, email and password fields are validated with [Joi](https://joi.dev/) validation lib.
 - If the email is already in use, the error of conflict is returned.
 - If validation is successful and email is unique, the password is hashed and the new user is saved in database.
 - No authentication token is returned in case verification stage will be added (for example, verification via e-mail).
@@ -83,7 +82,12 @@ ResponseBody: {
 Status: 201 Created
 Content-Type: application/json
 ResponseBody: {
-  message: "You have successfully registered."
+  "message": "You have successfully registered.",
+  "user": {
+        "id": "8bc51bef-20c5-41fb-9171-c66dbc482ca5",
+        "name": "Software Engineering School",
+        "email": "software@engineering.school"
+    }
 }
 
 ```
@@ -95,8 +99,9 @@ Endpoint to authenticate a user.
 - Email and password are required.
 - Email and password fields are validated only for their presence.
 - If a user with the provided e-mail and or password does not exist in database, general error message is returned.
-- If validation is successful and credentials are right, the JSON Web Token is created and returned.
-- JWT has limited life span.
+- If validation is successful and credentials are correct, a JSON Web Token is created and returned.
+- At this point only access token strategy is implemented (no refresh token is generated and stored).
+- Access JWT has limited life span.
 
 #### Login request
 
@@ -190,22 +195,23 @@ ResponseBody: {
 | :----------- | :---------------------------------------------------------- | :-------------------------- |
 | index.js     | Project's entry point                                       | -                           |
 | .example.env | Provides info about what environment variables are expected | API_KEY                     |
-| routes       | Keeps all projects endpoints                                | /user/create, /user/login   |
+| routes       | Keeps all project's endpoints                               | /user/create, /user/login   |
 | controllers  | Keeps endpoints handlers                                    | -                           |
 | db           | Keeps imitation of a local database                         | -                           |
 | repositories | Keeps methods to work with database                         | -                           |
 | services     | Keeps methods to work with external services                | Coinlayer                   |
 | middleware   | Keeps middleware functions                                  | isAuthenticated, validation |
-| helpers      | Keeps project's constants and configs                       | HTTP codes, API limiter     |
+| helpers      | Keeps project's constants, configs, helper functions        | HTTP codes, API limiter     |
 
 ## Tools and resources
 
 - JavaScript (Node.js) - as primary language.
 - [Express](https://expressjs.com/) - Node.js web application framework.
-- [Axios](https://www.npmjs.com/package/axios) - for fetch requests from external service.
+- [Axios](https://www.npmjs.com/package/axios) - for fetch requests to external service.
 - [bcryptjs](https://www.npmjs.com/package/bcryptjs) - for hashing passwords.
 - [jsonwebtoken](https://www.npmjs.com/package/jsonwebtoken) - for generating, signing, verifying JWT.
 - [helmet](https://www.npmjs.com/package/helmet) - for securing the Web API.
 - [express-rate-limit](https://www.npmjs.com/package/express-rate-limit) - for setting rate limits on requests to the Web API.
 - [Joi](https://joi.dev/api/) - for validating data provided in POST requests.
 - [Coinlayer](https://coinlayer.com/documentation) - external API to get current rate information from.
+- [Postman](https://www.postman.com/) - for sending requests and checking Web API's responses.
