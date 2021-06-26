@@ -2,13 +2,13 @@ const Joi = require("joi");
 const { HttpCodes } = require("../helpers/constants");
 
 const schemaRegisterUser = Joi.object({
-  name: Joi.string().min(2).max(30).optional(),
+  name: Joi.string().trim().min(2).max(30).required(),
   email: Joi.string()
     .email({
       minDomainSegments: 2,
     })
     .required(),
-  password: Joi.string().min(8).required(),
+  password: Joi.string().trim().min(8).required(),
 });
 
 const schemaLoginUser = Joi.object({
